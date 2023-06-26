@@ -20,7 +20,7 @@ spec:
     spec:
       serviceAccountName: elasticsearch-logging
       containers:
-      - image: elasticsearch:6.8.4
+      - image: elasticsearch:7.13.0-arm64
         name: elasticsearch-logging
         ports:
         - containerPort: 9200
@@ -39,7 +39,8 @@ spec:
               fieldPath: metadata.namespace
       volumes:
       - name: elasticsearch-logging
-        emptyDir: {}
+        hostPath:
+          path: /home/ubuntu/efk/elasticsearch/data
       initContainers:
       - image: alpine:3.6
         command: ["/sbin/sysctl", "-w", "vm.max_map_count=262144"]
